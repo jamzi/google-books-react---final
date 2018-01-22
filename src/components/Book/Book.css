@@ -1,0 +1,34 @@
+.book {
+    display: flex;
+    width: 100%;
+    padding: 20px;
+}
+
+.book-thumbnail {
+    width: 80px;
+    min-width: 80px;
+    height: 125px;
+    min-height: 125px;
+    margin-right: 15px;
+}
+
+.book-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.book-info-title {
+    font-weight: bold;
+}
+
+ul.book-info-authors {
+    margin-top: 10px;
+}
+
+ul.book-info-authors span::after{
+	content:", ";
+}
+
+ul.book-info-authors span:last-child::after {
+    content: "";
+}
