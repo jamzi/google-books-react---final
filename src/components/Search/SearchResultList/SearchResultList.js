@@ -14,7 +14,7 @@ const SearchResultList = (props) => {
 
     return (
         <div className="book-list">
-            {booksList.length ? booksList : 'No books to display'}
+            {booksList.length ? booksList : 'No books to display!'}
         </div>
     )
 }
