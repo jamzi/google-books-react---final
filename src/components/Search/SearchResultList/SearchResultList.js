@@ -1,15 +1,15 @@
 import React from 'react';
 
-import Book from './../Book/Book';
-import './BookList.css';
+import SearchResult from './../SearchResult/SearchResult';
+import './SearchResultList.css';
 
-const BookList = props => {
+const SearchResultList = (props) => {
     const {
         books
     } = props;
 
     const booksList = books.map((book) => {
-        return <Book key={book.id} book={book} />
+        return <SearchResult key={book.id} book={book} />
     });
 
     return (
@@ -19,5 +19,5 @@ const BookList = props => {
     )
 }
 
-export default BookList;
+export default SearchResultList;
 

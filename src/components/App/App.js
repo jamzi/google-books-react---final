@@ -1,39 +1,16 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 
-import BookList from './../BookList/BookList';
-import Search from './../Search/Search';
-import { fetchBooks } from './../Common/API';
-import './App.css';
+import SearchWrapper from './../Search/SearchWrapper/SearchWrapper';
+import BookDetail from './../BookDetail/BookDetail';
 
-class App extends Component {
-  constructor() {
-    super();
-
-    this.state = {
-      books: [],
-      searchTerm: ''
-    }
-
-    this.throttledHandleChange = this.throttledHandleChange.bind(this);
-  }
-
-  throttledHandleChange(searchTerm) {
-    fetchBooks(searchTerm).then((books) => {
-      this.setState({ books });
-    });
-  }
-
-  render() {
-
-    return (
-      <div className="App">
-        <header className="App-header">
-          <Search onSearchTermChange={this.throttledHandleChange} />
-        </header>
-        <BookList books={this.state.books}/>
-      </div>
-    );
-  }
-}
+const App = () => (
+  <Router>
+    <div>
+      <Route exact path="/" component={SearchWrapper} />
+      <Route path="/book/:bookId" component={BookDetail} />
+    </div>
+  </Router>
+);
 
 export default App;
