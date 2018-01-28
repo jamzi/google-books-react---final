@@ -1,0 +1,9 @@
+.google-login-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.google-login-button img {
+    width: 200px;
+}

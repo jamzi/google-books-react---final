@@ -37,12 +37,13 @@ class SearchWrapper extends Component {
     }
 
     render() {
+        const { books } = this.state;
         return (
             <div className="App">
                 <header className="App-header">
                     <SearchInput onSearchTermChange={this.throttledHandleChange} />
                 </header>
-                <SearchResultList books={this.state.books} />
+                <SearchResultList books={books} />
             </div>
         );
     }
