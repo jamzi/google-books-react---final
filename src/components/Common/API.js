@@ -8,7 +8,7 @@ export const auth = {
     }
 }
 
-export function searchBooks(searchTerm) {
+export function searchBooks(searchTerm, startIndex) {
     const accessToken = localStorage.getItem('access_token');
     let options = {};
     if (accessToken) {
@@ -18,7 +18,7 @@ export function searchBooks(searchTerm) {
             },
         }
     }
-    let url = `https://www.googleapis.com/books/v1/volumes?q=${searchTerm}&projection=lite`;
+    let url = `https://www.googleapis.com/books/v1/volumes?q=${searchTerm}&startIndex=${startIndex}&projection=lite`;
 
     return fetch(url, options).then((response) => {
         return response.json();

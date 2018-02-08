@@ -1,5 +1,6 @@
 
 import React, { Component } from 'react';
+import debounce from 'lodash/debounce';
 
 import SearchResultList from './../SearchResultList/SearchResultList';
 import SearchInput from './../SearchInput/SearchInput';
@@ -14,26 +15,30 @@ class SearchWrapper extends Component {
 
         this.state = {
             books: [],
-            searchTerm: ''
+            searchTerm: '',
+            currentIndex: 0
         }
 
-        this.throttledHandleChange = this.throttledHandleChange.bind(this);
+        this.debouncedHandleChange = this.debouncedHandleChange.bind(this);
+        this.handleMoreRequest = this.handleMoreRequest.bind(this);
     }
 
-    throttledHandleChange(e) {
-        let searchTerm = e.target.value;
-        if (this.throttleTimeout) {
-            clearTimeout(this._throttleTimeout)
-        }
+    debouncedHandleChange = debounce(searchTerm => {
+        this.setState({ searchTerm });
+        this.handleSearchBooks(searchTerm);
+    }, 500)
 
-        this.throttleTimeout = setTimeout(
-            () => {
-                searchBooks(searchTerm).then((books) => {
-                    this.setState({ books });
-                });
-            },
-            this.throttleTime
-        )
+    handleMoreRequest() {
+        const { searchTerm, currentIndex } = this.state;
+        const newIndex = currentIndex + 10;
+        this.setState({ currentIndex: newIndex}, () => this.handleSearchBooks(searchTerm, newIndex));
+    }
+
+    handleSearchBooks(searchTerm, currentIndex = 0) {
+        let existingBooks = this.state.books;
+        searchBooks(searchTerm, currentIndex).then((books) => {
+            this.setState({ books });
+        });
     }
 
     render() {
@@ -41,9 +46,9 @@ class SearchWrapper extends Component {
         return (
             <div className="App">
                 <header className="App-header">
-                    <SearchInput onSearchTermChange={this.throttledHandleChange} />
+                    <SearchInput onSearchTermChange={(e) => this.debouncedHandleChange(e.target.value)} />
                 </header>
-                <SearchResultList books={books} />
+                <SearchResultList books={books} onLoadMoreResults={this.handleMoreRequest} />
             </div>
         );
     }
