@@ -35,7 +35,6 @@ class SearchWrapper extends Component {
     }
 
     handleSearchBooks(searchTerm, currentIndex = 0) {
-        let existingBooks = this.state.books;
         searchBooks(searchTerm, currentIndex).then((books) => {
             this.setState({ books });
         });
