@@ -8,8 +8,6 @@ import { searchBooks } from './../../Common/API';
 import './SearchWrapper.css';
 
 class SearchWrapper extends Component {
-    throttleTime = 400;
-
     constructor() {
         super();
 
@@ -21,6 +19,14 @@ class SearchWrapper extends Component {
 
         this.debouncedHandleChange = this.debouncedHandleChange.bind(this);
         this.handleMoreRequest = this.handleMoreRequest.bind(this);
+    }
+
+    componentDidMount() {
+        window.onscroll = (event) => {
+          if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+            this.handleMoreRequest();
+          }
+        }
     }
 
     debouncedHandleChange = debounce(searchTerm => {
@@ -35,8 +41,10 @@ class SearchWrapper extends Component {
     }
 
     handleSearchBooks(searchTerm, currentIndex = 0) {
+        let existingBooks = currentIndex ? this.state.books : [];
+
         searchBooks(searchTerm, currentIndex).then((books) => {
-            this.setState({ books });
+            this.setState({ books: [...existingBooks, ...books] });
         });
     }
 

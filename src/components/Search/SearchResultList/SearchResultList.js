@@ -5,8 +5,7 @@ import './SearchResultList.css';
 
 const SearchResultList = (props) => {
     const {
-        books,
-        onLoadMoreResults
+        books
     } = props;
 
     const booksList = books.map((book) => {
@@ -16,7 +15,6 @@ const SearchResultList = (props) => {
     return (
         <div className="book-list">
             {booksList.length ? booksList : 'No books to display!'}
-            {booksList.length ? <button className="load-more" onClick={onLoadMoreResults}>Load more</button> : ''}
         </div>
     )
 }
