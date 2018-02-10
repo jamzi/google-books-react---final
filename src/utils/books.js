@@ -1,14 +1,13 @@
-export function searchBooks(searchTerm, startIndex) {
-    const accessToken = localStorage.getItem('access_token');
-    let options = {};
-    if (accessToken) {
-        options = {
-            headers: {
-                'Authorization': 'Bearer ' + accessToken
-            },
-        }
+const accessToken = localStorage.getItem('access_token') || '';
+const options = {
+    headers: {
+        'Authorization': 'Bearer ' + accessToken
     }
-    let url = `https://www.googleapis.com/books/v1/volumes?q=${searchTerm}&startIndex=${startIndex}&projection=lite`;
+}
+const baseUrl = 'https://www.googleapis.com/books/v1/volumes';
+
+export function searchBooks(searchTerm, startIndex) {
+    let url = `${baseUrl}?q=${searchTerm}&startIndex=${startIndex}&projection=lite`;
 
     return fetch(url, options).then((response) => {
         return response.json();
@@ -18,16 +17,7 @@ export function searchBooks(searchTerm, startIndex) {
 }
 
 export function getBook(bookId) {
-    const accessToken = localStorage.getItem('access_token');
-    let options = {};
-    if (accessToken) {
-        options = {
-            headers: {
-                'Authorization': 'Bearer ' + accessToken
-            },
-        }
-    }
-    let url = `https://www.googleapis.com/books/v1/volumes/${bookId}`;
+    let url = `${baseUrl}/${bookId}`;
 
     return fetch(url, options).then((response) => {
         return response.json();
@@ -37,16 +27,7 @@ export function getBook(bookId) {
 }
 
 export function getRecommendedBooks() {
-    const accessToken = localStorage.getItem('access_token');
-    let options = {};
-    if (accessToken) {
-        options = {
-            headers: {
-                'Authorization': 'Bearer ' + accessToken
-            },
-        }
-    }
-    let url = `https://www.googleapis.com/books/v1/volumes/recommended`;
+    let url = `${baseUrl}/recommended`;
 
     return fetch(url, options).then((response) => {
         return response.json();
