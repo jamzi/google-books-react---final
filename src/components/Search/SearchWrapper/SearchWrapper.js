@@ -4,7 +4,7 @@ import debounce from 'lodash/debounce';
 
 import SearchResultList from './../SearchResultList/SearchResultList';
 import SearchInput from './../SearchInput/SearchInput';
-import { searchBooks } from './../../Common/API';
+import { searchBooks } from './../../../utils/books';
 import './SearchWrapper.css';
 
 class SearchWrapper extends Component {

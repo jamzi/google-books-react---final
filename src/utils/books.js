@@ -1,13 +1,3 @@
-export const auth = {
-    isAuthenticated() {
-        return !!localStorage.getItem('access_token');
-    },
-    signout() {
-        localStorage.removeItem('id_token');
-        localStorage.removeItem('access_token');
-    }
-}
-
 export function searchBooks(searchTerm, startIndex) {
     const accessToken = localStorage.getItem('access_token');
     let options = {};

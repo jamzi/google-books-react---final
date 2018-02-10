@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 
 import SearchResultList from './../Search/SearchResultList/SearchResultList';
-import { getRecommendedBooks } from './../Common/API';
+import { getRecommendedBooks } from './../../utils/books';
 import './../Search/SearchWrapper/SearchWrapper.css';
 
 class Recommended extends Component {

@@ -1,48 +1,76 @@
-import React from 'react';
+import React, { Component } from 'react';
 import {
   BrowserRouter as Router,
   Route,
-  Link,
   Redirect
-} from 'react-router-dom'
+} from 'react-router-dom';
+import firebase from '@firebase/app';
+import '@firebase/auth';
 
 import SearchWrapper from './../Search/SearchWrapper/SearchWrapper';
 import BookDetail from './../BookDetail/BookDetail';
 import Recommended from './../Recommended/Recommended';
 import Login from './../Login/Login';
 import Home from './../Home/Home';
-import AuthButton from './../AuthButton/AuthButton';
-import { auth } from './../Common/API';
+import Header from './../Header/Header';
 
-const App = () => (
-  <Router>
-    <div>
-      <ul>
-        <li><Link to="/">Home</Link></li>
-        <li><Link to="/search">Search</Link></li>
-        <li><Link to="/recommended">Recommended</Link></li>
-      </ul>
-      <AuthButton/>
-      <Route exact path="/" component={Home}/>
-      <Route path="/login" component={Login}/>
-      <PrivateRoute path="/search" component={SearchWrapper}/>
-      <PrivateRoute path="/recommended" component={Recommended} />
-      <PrivateRoute path="/book/:bookId" component={BookDetail} />
-    </div>
-  </Router>
-);
+class App extends Component {
+  constructor(props) {
+    super(props);
 
-const PrivateRoute = ({ component: Component, ...rest }) => (
-  <Route {...rest} render={props => (
-    auth.isAuthenticated() ? (
-      <Component {...props}/>
-    ) : (
-      <Redirect to={{
-        pathname: '/login',
-        state: { from: props.location }
-      }}/>
+    this.state = {
+      isAuthenticated: false,
+      user: {}
+    }
+  }
+
+  componentWillMount () {
+    this.removeAuthListener = firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        this.setState({
+          isAuthenticated: true,
+          user: user
+        })
+      } else {
+        this.setState({
+          isAuthenticated: false,
+          user: {}
+        })
+      }
+    })
+  }
+
+  componentWillUnmount () {
+    this.removeAuthListener();
+  }
+
+  render() {
+    return (
+      <Router>
+        <div>
+          <Header user={this.state.user} isAuthenticated={this.state.isAuthenticated} />
+          <Route exact path="/" component={Home} />
+          <Route path="/login" component={Login} />
+          <PrivateRoute isAuthenticated={this.state.isAuthenticated} path="/search" component={SearchWrapper} />
+          <PrivateRoute isAuthenticated={this.state.isAuthenticated} path="/recommended" component={Recommended} />
+          <PrivateRoute isAuthenticated={this.state.isAuthenticated} path="/book/:bookId" component={BookDetail} />
+        </div>
+      </Router>
     )
-  )}/>
+  }
+}
+
+const PrivateRoute = ({ component: Component, isAuthenticated, ...rest }) => (
+  <Route {...rest} render={props => (
+    isAuthenticated ? (
+      <Component {...props} />
+    ) : (
+        <Redirect to={{
+          pathname: '/login',
+          state: { from: props.location }
+        }} />
+      )
+  )} />
 )
 
 export default App;

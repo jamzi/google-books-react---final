@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { getBook } from '../Common/API';
+import { getBook } from '../../utils/books';
 
 class BookDetail extends Component {
     constructor(props) {
