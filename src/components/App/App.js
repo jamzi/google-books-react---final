@@ -12,6 +12,7 @@ import Recommended from './../Recommended/Recommended';
 import Login from './../Login/Login';
 import Home from './../Home/Home';
 import Header from './../Header/Header';
+import './App.css';
 
 class App extends Component {
   constructor(props) {
@@ -23,7 +24,7 @@ class App extends Component {
     }
   }
 
-  componentWillMount () {
+  componentWillMount() {
     this.removeAuthListener = firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         this.setState({
@@ -39,7 +40,7 @@ class App extends Component {
     })
   }
 
-  componentWillUnmount () {
+  componentWillUnmount() {
     this.removeAuthListener();
   }
 
@@ -48,11 +49,13 @@ class App extends Component {
       <Router>
         <div>
           <Header user={this.state.user} isAuthenticated={this.state.isAuthenticated} />
-          <Route path="/search" component={SearchWrapper} />
-          <Route exact path="/" component={Home} />
-          <Route path="/recommended" component={Recommended} />
-          <Route path="/book/:bookId" component={BookDetail} /> 
-          <Route path="/login" component={Login} />
+          <div className="app-routes">
+            <Route path="/search" component={SearchWrapper} />
+            <Route exact path="/" component={Home} />
+            <Route path="/recommended" component={Recommended} />
+            <Route path="/book/:bookId" component={BookDetail} />
+            <Route path="/login" component={Login} />
+          </div>
         </div>
       </Router>
     )

@@ -4,6 +4,7 @@ import {
 } from 'react-router-dom';
 import firebase from '@firebase/app';
 import '@firebase/auth';
+import Button from 'material-ui/Button';
 
 import './Login.css';
 
@@ -27,7 +28,7 @@ class Login extends Component {
                 const accessToken = response.credential.accessToken;
                 localStorage.setItem('access_token', accessToken);
 
-                this.setState({ redirectToReferrer: true});
+                this.setState({ redirectToReferrer: true });
             })
             .catch(err => {
                 console.log(err);
@@ -45,7 +46,9 @@ class Login extends Component {
         return (
             <div>
                 <p>You must log in to view the page</p>
-                <button onClick={this.onLogin}>Log In</button>            
+                <Button variant="raised" color="primary" onClick={this.onLogin}>
+                    Log in with Google
+                </Button>
             </div>
         )
     }
