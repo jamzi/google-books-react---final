@@ -1,5 +1,5 @@
 import React from 'react';
-import List from 'material-ui/List';
+import List from 'material-ui/List'
 
 import SearchResult from './../SearchResult/SearchResult';
 import './SearchResultList.css';

@@ -9,6 +9,8 @@ import '@firebase/auth';
 import SearchWrapper from './../Search/SearchWrapper/SearchWrapper';
 import BookDetail from './../BookDetail/BookDetail';
 import Recommended from './../Recommended/Recommended';
+import Bookshelves from './../Bookshelves/Bookshelves';
+import BookshelveDetail from './../BookshelveDetail/BookshelveDetail';
 import Login from './../Login/Login';
 import Home from './../Home/Home';
 import Header from './../Header/Header';
@@ -54,6 +56,8 @@ class App extends Component {
             <Route exact path="/" component={Home} />
             <Route path="/recommended" component={Recommended} />
             <Route path="/book/:bookId" component={BookDetail} />
+            <Route path="/bookshelves" component={Bookshelves} />
+            <Route path="/bookshelve/:bookshelveId" component={BookshelveDetail} />
             <Route path="/login" component={Login} />
           </div>
         </div>

@@ -4,10 +4,10 @@ const options = {
         'Authorization': 'Bearer ' + accessToken
     }
 }
-const baseUrl = 'https://www.googleapis.com/books/v1/volumes';
+const baseUrl = 'https://www.googleapis.com/books/v1';
 
 export function searchBooks(searchTerm, startIndex) {
-    let url = `${baseUrl}?q=${searchTerm}&startIndex=${startIndex}&projection=lite`;
+    let url = `${baseUrl}/volumes?q=${searchTerm}&startIndex=${startIndex}&projection=lite`;
 
     return fetch(url, options).then((response) => {
         return response.json();
@@ -17,7 +17,7 @@ export function searchBooks(searchTerm, startIndex) {
 }
 
 export function getBook(bookId) {
-    let url = `${baseUrl}/${bookId}`;
+    let url = `${baseUrl}/volumes/${bookId}`;
 
     return fetch(url, options).then((response) => {
         return response.json();
@@ -27,7 +27,27 @@ export function getBook(bookId) {
 }
 
 export function getRecommendedBooks() {
-    let url = `${baseUrl}/recommended`;
+    let url = `${baseUrl}/volumes/recommended`;
+
+    return fetch(url, options).then((response) => {
+        return response.json();
+    }).then((response) => {
+        return response || {};
+    });
+}
+
+export function getMyLibraryBookshelves() {
+    let url = `${baseUrl}/mylibrary/bookshelves`;
+
+    return fetch(url, options).then((response) => {
+        return response.json();
+    }).then((response) => {
+        return response || {};
+    });
+}
+
+export function getBooksFromBookshelve(bookshelveId) {
+    let url = `${baseUrl}/mylibrary/bookshelves/${bookshelveId}/volumes`;
 
     return fetch(url, options).then((response) => {
         return response.json();
