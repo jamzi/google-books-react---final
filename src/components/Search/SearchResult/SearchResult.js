@@ -26,7 +26,7 @@ const SearchResult = (props) => {
     }
 
     return (
-        <Link to={`book/${book.id}`}>
+        <Link to={`/book/${book.id}`}>
             <ListItem>
                 <ListItemIcon>
                     <img className="book-thumbnail" src={smallThumbnail} alt={smallThumbnail ? book.volumeInfo.title : 'no-image'} />

@@ -31,7 +31,7 @@ class Bookshelves extends Component {
         const bookshelvesList = bookshelves && bookshelves.map((bookshelve) => {
             const { title = '', volumeCount = 0, id } = bookshelve;
             return (
-                <Link to={`bookshelve/${id}`}>
+                <Link key={id} to={`bookshelve/${id}`}>
                     <ListItem>
                         <ListItemText primary={title} secondary={volumeCount ? 'Number of books: ' + volumeCount : ''} />
                     </ListItem>

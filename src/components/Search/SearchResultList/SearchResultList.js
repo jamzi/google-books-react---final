@@ -9,14 +9,14 @@ const SearchResultList = (props) => {
         books
     } = props;
 
-    const booksList = books.map((book) => {
+    const booksList = books && books.map((book) => {
         return <SearchResult key={book.id} book={book} />
     });
 
     return (
         <div className="book-list">
             <List>
-                {booksList.length ? booksList : 'No books to display!'}
+                {booksList ? booksList : 'No books to display!'}
             </List>
         </div>
     )
