@@ -4,6 +4,8 @@
   Google Books API powered React application
 </p>
 
+<h2> WORK IN PROGRESS - Auhtentication is not stable at the moment </h2>
+
 ## Table of Contents
 
 - [Demo](#demo)
