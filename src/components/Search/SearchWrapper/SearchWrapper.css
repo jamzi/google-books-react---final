@@ -1,9 +1,11 @@
 .App-header {
-    background-color: lightgray;
-    height: 50px;
-    padding: 20px;
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    padding: 0px 20px 5px 20px;
+}
+
+h3 {
+    color: rgba(0, 0, 0, 0.54);
+    margin: 1em 0 0.7em;
+    font-size: 1.5rem;
+    font-weight: 300;
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
 }

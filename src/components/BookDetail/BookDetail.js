@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import { getBook } from '../../utils/books';
+import { CircularProgress } from 'material-ui/Progress';
+
+import './BookDetail.css';
 
 class BookDetail extends Component {
     constructor(props) {
@@ -27,15 +30,19 @@ class BookDetail extends Component {
         const categories = bookInfo.categories && bookInfo.categories.map((category, index) => {
             return <span key={index}>{category}</span>
         });
+        const strippedDescription = bookInfo && bookInfo.description && bookInfo.description.replace(/<(.|\n)*?>/g, '');
         if (!isLoaded) {
-            return (<div>Loading ...</div>);
+            return (
+                <div className="spinner">
+                    <CircularProgress />
+                </div>);
         } else {
             return (
-                <div>
+                <div className="book-detail">
                     <h1>{bookInfo.title}</h1><span>({bookInfo.publishedDate})</span>
-                    <div>By: { authors ? authors : 'No authors to display'}</div>
-                    <h3>{bookInfo.description}</h3>
-                    <div>Categories: { categories ? categories : 'No categories to display'}</div>
+                    <div>By: {authors ? authors : 'No authors to display'}</div>
+                    <h3>{strippedDescription}</h3>
+                    <div>Categories: {categories ? categories : 'No categories to display'}</div>
                 </div>
             )
         }

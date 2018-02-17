@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import {
   BrowserRouter as Router,
-  Route,
-  Redirect
+  Route
 } from 'react-router-dom';
 import firebase from '@firebase/app';
 import '@firebase/auth';
@@ -49,28 +48,15 @@ class App extends Component {
       <Router>
         <div>
           <Header user={this.state.user} isAuthenticated={this.state.isAuthenticated} />
+          <Route path="/search" component={SearchWrapper} />
           <Route exact path="/" component={Home} />
+          <Route path="/recommended" component={Recommended} />
+          <Route path="/book/:bookId" component={BookDetail} /> 
           <Route path="/login" component={Login} />
-          <PrivateRoute isAuthenticated={this.state.isAuthenticated} path="/search" component={SearchWrapper} />
-          <PrivateRoute isAuthenticated={this.state.isAuthenticated} path="/recommended" component={Recommended} />
-          <PrivateRoute isAuthenticated={this.state.isAuthenticated} path="/book/:bookId" component={BookDetail} />
         </div>
       </Router>
     )
   }
 }
-
-const PrivateRoute = ({ component: Component, isAuthenticated, ...rest }) => (
-  <Route {...rest} render={props => (
-    isAuthenticated ? (
-      <Component {...props} />
-    ) : (
-        <Redirect to={{
-          pathname: '/login',
-          state: { from: props.location }
-        }} />
-      )
-  )} />
-)
 
 export default App;

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom'
+import { ListItem, ListItemText, ListItemIcon } from 'material-ui/List';
 
 import './SearchResult.css';
 import genericBook from './generic-book.png';
@@ -20,21 +21,18 @@ const SearchResult = (props) => {
             return <span>No authors to display</span>;
         }
         return authorList.map((author, index) => {
-            return <span key={index}>{author}</span>;
+            return <span key={index}>{author}{index + 1 !== authorList.length ? ', ' : ''}</span>;
         });
     }
 
     return (
         <Link to={`book/${book.id}`}>
-            <div className="book">
-                <img className="book-thumbnail" src={smallThumbnail} alt={smallThumbnail ? book.volumeInfo.title : 'no-image'} />
-                <div className="book-info">
-                    <div className="book-info-title">{book.volumeInfo.title}</div>
-                    <ul className="book-info-authors">
-                        {authorList}
-                    </ul>
-                </div>
-            </div>
+            <ListItem>
+                <ListItemIcon>
+                    <img className="book-thumbnail" src={smallThumbnail} alt={smallThumbnail ? book.volumeInfo.title : 'no-image'} />
+                </ListItemIcon>
+                <ListItemText primary={book.volumeInfo.title} secondary={authorList} />
+            </ListItem>
         </Link>
     )
 }

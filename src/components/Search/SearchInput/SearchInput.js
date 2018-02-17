@@ -1,8 +1,17 @@
 import React from 'react';
+import TextField from 'material-ui/TextField';
+
 import './SearchInput.css';
 
 const SearchInput = (props) => (
-    <input type="text" className="search-input" placeholder="Search books" onChange={props.onSearchTermChange} />
+    <TextField
+        id="search"
+        label="Search books"
+        type="search"
+        margin="normal"
+        fullWidth
+        onChange={props.onSearchTermChange}
+    />
 )
 
 export default SearchInput;

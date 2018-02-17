@@ -1,6 +1,7 @@
 
 import React, { Component } from 'react';
 import debounce from 'lodash/debounce';
+import Divider from 'material-ui/Divider';
 
 import SearchResultList from './../SearchResultList/SearchResultList';
 import SearchInput from './../SearchInput/SearchInput';
@@ -55,6 +56,7 @@ class SearchWrapper extends Component {
                 <header className="App-header">
                     <SearchInput onSearchTermChange={(e) => this.debouncedHandleChange(e.target.value)} />
                 </header>
+                <Divider />
                 <SearchResultList books={books} onLoadMoreResults={this.handleMoreRequest} />
             </div>
         );
