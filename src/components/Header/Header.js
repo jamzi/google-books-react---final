@@ -71,7 +71,7 @@ class Header extends Component {
                     </Typography>
                     {
                         userData ? 
-                            <Avatar alt="Google profile image" src={userData && userData.photoURL} /> :
+                            <Avatar alt="Google profile image" src={userData && userData.photoURL} onClick={this.onLogOut} /> :
                             <NavLink to="/login " style={{ textDecoration: 'none', color: 'unset' }} >
                                 <div>Login</div>
                             </NavLink >
@@ -104,7 +104,7 @@ class Header extends Component {
                                 </ListItem>
                             </NavLink >
                             <Divider />
-                            <NavLink to="/login " style={{ textDecoration: 'none', color: 'unset' }} >
+                            <NavLink to="/login" style={{ textDecoration: 'none', color: 'unset' }} >
                                 <ListItem button>
                                     <ListItemText primary="Login" />
                                 </ListItem>
