@@ -1,9 +1,46 @@
-import React from 'react';
+/* global gapi */
 
-const Home = () => (
-  <div>
-    <h1>Home</h1>
-  </div>
-)
+import React, { Component } from 'react';
+import Button from 'material-ui/Button';
+
+class Home extends Component {
+  componentWillMount() {
+    const getLoginState = () =>
+      gapi.auth2.getAuthInstance().isSignedIn.get()
+    this.setState({ isLoggedIn: getLoginState() })
+
+    gapi.auth2.getAuthInstance().isSignedIn
+      .listen(() => this.setState({ isLoggedIn: getLoginState() }));
+  }
+
+  handleLoginClick() {
+    gapi.auth2.getAuthInstance().signIn();
+  }
+
+  handleLogoutClick() {
+    gapi.auth2.getAuthInstance().signOut();
+  }
+
+  render() {
+    const { isLoggedIn } = this.state;
+    let button;
+
+    if (isLoggedIn) {
+      button = <Button variant="raised" color="primary" onClick={this.handleLogoutClick}>
+        Logout
+                </Button>
+    } else {
+      button = <Button variant="raised" color="primary" onClick={this.handleLoginClick}>
+        Log in with Google
+                </Button>
+    }
+
+    return (
+      <div>
+        {button}
+      </div>
+    )
+  }
+}
 
 export default Home;

@@ -3,14 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@firebase/app": "^0.1.8",
-    "@firebase/auth": "^0.3.3",
     "lodash": "^4.17.5",
     "material-ui": "^1.0.0-beta.33",
     "material-ui-icons": "^1.0.0-beta.17",
     "normalize.css": "^7.0.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
+    "react-load-script": "^0.0.6",
     "react-router-dom": "^4.2.2",
     "react-scripts": "1.1.0",
     "typeface-roboto": "0.0.54"

@@ -1,10 +1,10 @@
-const accessToken = localStorage.getItem('access_token') || '';
-const options = {
+
+let options = {
     headers: {
-        'Authorization': 'Bearer ' + accessToken
+        'Authorization': 'Bearer '
     }
 }
-const baseUrl = 'https://www.googleapis.com/books/v1';
+let baseUrl = 'https://www.googleapis.com/books/v1';
 
 export function searchBooks(searchTerm, startIndex) {
     let url = `${baseUrl}/volumes?q=${searchTerm}&startIndex=${startIndex}&projection=lite`;
@@ -54,4 +54,8 @@ export function getBooksFromBookshelve(bookshelveId) {
     }).then((response) => {
         return response || {};
     });
+}
+
+export function setAccessToken(accessToken) {
+    options.headers.Authorization = `Bearer ${accessToken}`;
 }

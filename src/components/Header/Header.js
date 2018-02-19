@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import firebase from '@firebase/app';
-import '@firebase/auth';
 import { NavLink } from 'react-router-dom';
 import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
@@ -25,31 +23,9 @@ class Header extends Component {
 
         this.state = {
             redirectToReferrer: false,
-            drawerOpened: false,
-            userData: {}
+            drawerOpened: false
         }
-
-        this.onLogOut = this.onLogOut.bind(this);
         this.toggleDrawer = this.toggleDrawer.bind(this);
-    }
-
-    componentDidMount() {
-        const userKey = Object.keys(localStorage)
-            .filter(it => it.startsWith('firebase:authUser'))[0];
-        const user = userKey ? JSON.parse(localStorage.getItem(userKey)) : undefined;
-
-        this.setState({ userData: user });
-    }
-
-    onLogOut() {
-        firebase.auth().signOut()
-            .then(() => {
-                localStorage.removeItem('access_token');
-                console.log('User successfully signed out');
-            })
-            .catch(err => {
-                console.log(err);
-            });
     }
 
     toggleDrawer() {
@@ -57,8 +33,7 @@ class Header extends Component {
     }
 
     render() {
-        const { classes } = this.props;
-        const { userData } = this.state;
+        const { classes, userPhotoUrl } = this.props;
 
         return (
             <AppBar position="static" color="default">
@@ -70,11 +45,9 @@ class Header extends Component {
                         Google Books React
                     </Typography>
                     {
-                        userData ? 
-                            <Avatar alt="Google profile image" src={userData && userData.photoURL} onClick={this.onLogOut} /> :
-                            <NavLink to="/login " style={{ textDecoration: 'none', color: 'unset' }} >
-                                <div>Login</div>
-                            </NavLink >
+                        userPhotoUrl ? 
+                            <Avatar alt="Google profile image" src={userPhotoUrl} onClick={this.onLogOut} />
+                            : <div>Not logged in</div>
                     }
                 </Toolbar>
                 <Drawer open={this.state.drawerOpened} onClose={this.toggleDrawer}>
@@ -104,11 +77,6 @@ class Header extends Component {
                                 </ListItem>
                             </NavLink >
                             <Divider />
-                            <NavLink to="/login" style={{ textDecoration: 'none', color: 'unset' }} >
-                                <ListItem button>
-                                    <ListItemText primary="Login" />
-                                </ListItem>
-                            </NavLink >
                         </List>
                     </div>
                 </Drawer>
