@@ -5,7 +5,6 @@ import {
   BrowserRouter as Router,
   Route
 } from 'react-router-dom';
-import Script from 'react-load-script'
 import { CircularProgress } from 'material-ui/Progress';
 
 import SearchWrapper from './../Search/SearchWrapper/SearchWrapper';
@@ -29,46 +28,56 @@ class App extends Component {
     }
   }
 
-  render() {
-    const handleScriptError = () => this.setState({ gapiLoaded: false })
-    const handleScriptLoad = () => {
+  componentDidMount() {
+    const script = document.createElement("script");
+    script.src = "https://apis.google.com/js/client.js";
+
+    script.onload = () => {
       const initClient = () => {
         gapi.client.init(config).then(() => {
           const auth2 = gapi.auth2.getAuthInstance();
-          auth2.isSignedIn.listen(handleSigninStatusChange);
+          auth2.isSignedIn.listen(this.handleSigninStatusChange);
 
           const currentUser = auth2.currentUser.get();
           const authResponse = currentUser.getAuthResponse(true);
-          if (authResponse.access_token) {
+          if (authResponse && currentUser) {
             setAccessToken(authResponse.access_token);
+            this.setState({
+              userPhotoUrl: currentUser.getBasicProfile().getImageUrl() 
+            })
           }
           this.setState({ 
-            gapiLoaded: true, 
-            userPhotoUrl: currentUser.getBasicProfile().getImageUrl() 
+            gapiLoaded: true
           });
         });
       }
       gapi.load('client:auth2', initClient);
-    }
+    };
 
-    const handleSigninStatusChange = (isSignedIn) => {
-      const auth2 = gapi.auth2.getAuthInstance();
-      if (isSignedIn) {
-        const currentUser = auth2.currentUser.get();
-        const authResponse = currentUser.getAuthResponse(true);
-        if (authResponse.access_token) {
-          setAccessToken(authResponse.access_token);
-        }
-        this.setState({
-          userPhotoUrl: currentUser.getBasicProfile().getImageUrl()
-        });
-      } else {
-        this.setState({
-          userPhotoUrl: ''
-        });
+    document.body.appendChild(script);
+  }
+
+  handleSigninStatusChange = (isSignedIn) => {
+    const auth2 = gapi.auth2.getAuthInstance();
+    if (isSignedIn) {
+      const currentUser = auth2.currentUser.get();
+      const authResponse = currentUser.getAuthResponse(true);
+      if (authResponse) {
+        setAccessToken(authResponse.access_token);
       }
+      this.setState({
+        userPhotoUrl: currentUser.getBasicProfile().getImageUrl()
+      });
+    } else {
+      this.setState({
+        userPhotoUrl: ''
+      });
     }
+  }
 
+  handleScriptError = () => this.setState({ gapiLoaded: false })
+
+  render() {
     let element
     if (this.state.gapiLoaded) {
       element = (
@@ -94,11 +103,6 @@ class App extends Component {
 
     return (
       <div>
-        <Script
-          url="https://apis.google.com/js/api.js"
-          onError={handleScriptError}
-          onLoad={handleScriptLoad}
-        />
         {element}
       </div>
     )
