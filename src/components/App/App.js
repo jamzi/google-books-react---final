@@ -6,6 +6,7 @@ import {
   Route
 } from 'react-router-dom';
 import Script from 'react-load-script'
+import { CircularProgress } from 'material-ui/Progress';
 
 import SearchWrapper from './../Search/SearchWrapper/SearchWrapper';
 import BookDetail from './../BookDetail/BookDetail';
@@ -86,7 +87,9 @@ class App extends Component {
         </Router>
       )
     } else {
-      element = <div>Loading GAPI</div>
+      element = <div className="spinner">
+                    <CircularProgress />
+                </div>
     }
 
     return (
