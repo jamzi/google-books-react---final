@@ -56,6 +56,19 @@ export function getBooksFromBookshelve(bookshelveId) {
     });
 }
 
+export function addBookToBookshelf(shelfId, volumeId) {
+    let url = `${baseUrl}/mylibrary/bookshelves/${shelfId}/addVolume?volumeId=${volumeId}`;
+    let additionalOptions = options;
+    additionalOptions.method = 'POST';
+
+    return fetch(url, options).then((response) => {
+        if (response.status === 204) {
+            return 'Added to: To read';
+        }
+        return 'Fail';
+    });
+}
+
 export function setAccessToken(accessToken) {
     options.headers.Authorization = `Bearer ${accessToken}`;
 }

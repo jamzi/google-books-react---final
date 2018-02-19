@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { getBook } from '../../utils/books';
+import { getBook, addBookToBookshelf } from '../../utils/books';
 import { CircularProgress } from 'material-ui/Progress';
+import Button from 'material-ui/Button';
 
 import './BookDetail.css';
 
@@ -12,13 +13,20 @@ class BookDetail extends Component {
             isLoaded: false,
             bookInfo: {}
         }
+        this.handleAddToBookshelf = this.handleAddToBookshelf.bind(this);
     }
 
     componentDidMount() {
         let bookId = this.props.match.params.bookId;
 
         getBook(bookId).then((bookInfo) => {
-            this.setState({ bookInfo: bookInfo.volumeInfo, isLoaded: true });
+            this.setState({ bookInfo: bookInfo.volumeInfo, bookId: bookInfo.id, isLoaded: true });
+        });
+    }
+
+    handleAddToBookshelf() {
+        addBookToBookshelf(2, this.state.bookId).then((response) => {
+            console.log(response);
         });
     }
 
@@ -39,6 +47,7 @@ class BookDetail extends Component {
         } else {
             return (
                 <div className="book-detail">
+                    <Button onClick={this.handleAddToBookshelf}>Add to: To read</Button>
                     <h1>{bookInfo.title}</h1><span>({bookInfo.publishedDate})</span>
                     <div>By: {authors ? authors : 'No authors to display'}</div>
                     <h3>{strippedDescription}</h3>
