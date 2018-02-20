@@ -6,11 +6,12 @@ import './SearchResultList.css';
 
 const SearchResultList = (props) => {
     const {
-        books = []
+        books = [],
+        bookshelfId
     } = props;
 
     const bookList = books.map((book) => {
-        return <SearchResult key={book.id} book={book} />
+        return <SearchResult key={book.id} book={book} bookshelfId={bookshelfId} />
     });
 
     return (

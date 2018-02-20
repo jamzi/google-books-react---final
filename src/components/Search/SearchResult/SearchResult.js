@@ -1,12 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ListItem, ListItemText, ListItemIcon } from 'material-ui/List';
+import { ListItem, ListItemText, ListItemIcon, ListItemSecondaryAction} from 'material-ui/List';
+import IconButton from 'material-ui/IconButton';
+import DeleteIcon from 'material-ui-icons/Delete';
 
 import './SearchResult.css';
 import genericBook from './generic-book.png';
+import { removeBookFromBookshelf } from '../../../utils/books';
 
 const SearchResult = (props) => {
-    const { book } = props;
+    const { book, bookshelfId } = props;
     const smallThumbnail = getThumbnail(book) || genericBook;
     const authorList = getAuthorList(book);
 
@@ -25,6 +28,15 @@ const SearchResult = (props) => {
         });
     }
 
+    function handleRemoveBookFromBookshelf(e) {
+        e.stopPropagation();
+        e.preventDefault();
+        
+        removeBookFromBookshelf(bookshelfId, book.id).then((response) => {
+            console.log(response);
+        });
+    }
+
     return (
         <Link to={`/book/${book.id}`}>
             <ListItem>
@@ -32,6 +44,11 @@ const SearchResult = (props) => {
                     <img className="book-thumbnail" src={smallThumbnail} alt={smallThumbnail ? book.volumeInfo.title : 'no-image'} />
                 </ListItemIcon>
                 <ListItemText primary={book.volumeInfo.title} secondary={authorList} />
+                <ListItemSecondaryAction>
+                    <IconButton aria-label="Delete" onClick={handleRemoveBookFromBookshelf}>
+                        <DeleteIcon />
+                    </IconButton>
+                </ListItemSecondaryAction>
             </ListItem>
         </Link>
     )

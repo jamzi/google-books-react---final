@@ -11,7 +11,8 @@ class BookshelfDetail extends Component {
 
         this.state = {
             isLoaded: false,
-            bookshelfInfo: {}
+            bookshelfInfo: {},
+            bookshelfId: null
         }
     }
 
@@ -19,12 +20,12 @@ class BookshelfDetail extends Component {
         let bookshelfId = this.props.match.params.bookshelfId;
 
         getBooksFromBookshelf(bookshelfId).then((bookshelfInfo) => {
-            this.setState({ bookshelfInfo, isLoaded: true });
+            this.setState({ bookshelfInfo, isLoaded: true, bookshelfId });
         });
     }
 
     render() {
-        const { isLoaded, bookshelfInfo } = this.state;
+        const { isLoaded, bookshelfInfo, bookshelfId } = this.state;
 
         if (!isLoaded) {
             return (
@@ -33,7 +34,7 @@ class BookshelfDetail extends Component {
                 </div>);
         } else {
             return (
-                <SearchResultList books={bookshelfInfo.items} />
+                <SearchResultList books={bookshelfInfo.items} bookshelfId={bookshelfId} />
             )
         }
     }

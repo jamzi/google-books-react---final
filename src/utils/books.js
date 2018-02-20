@@ -69,6 +69,19 @@ export function addBookToBookshelf(shelfId, volumeId) {
     });
 }
 
+export function removeBookFromBookshelf(shelfId, volumeId) {
+    let url = `${baseUrl}/mylibrary/bookshelves/${shelfId}/removeVolume?volumeId=${volumeId}`;
+    let additionalOptions = options;
+    additionalOptions.method = 'POST';
+
+    return fetch(url, options).then((response) => {
+        if (response.status === 204) {
+            return 'Successfully removed book from bookshelf';
+        }
+        return 'Fail';
+    });
+}
+
 export function setAccessToken(accessToken) {
     options.headers.Authorization = `Bearer ${accessToken}`;
 }
