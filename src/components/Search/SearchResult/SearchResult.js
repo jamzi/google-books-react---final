@@ -31,7 +31,7 @@ const SearchResult = (props) => {
     function handleRemoveBookFromBookshelf(e) {
         e.stopPropagation();
         e.preventDefault();
-        
+
         removeBookFromBookshelf(bookshelfId, book.id).then((response) => {
             console.log(response);
         });
@@ -44,11 +44,15 @@ const SearchResult = (props) => {
                     <img className="book-thumbnail" src={smallThumbnail} alt={smallThumbnail ? book.volumeInfo.title : 'no-image'} />
                 </ListItemIcon>
                 <ListItemText primary={book.volumeInfo.title} secondary={authorList} />
-                <ListItemSecondaryAction>
-                    <IconButton aria-label="Delete" onClick={handleRemoveBookFromBookshelf}>
-                        <DeleteIcon />
-                    </IconButton>
-                </ListItemSecondaryAction>
+                {
+                    bookshelfId ?
+                        <ListItemSecondaryAction>
+                            <IconButton aria-label="Delete" onClick={handleRemoveBookFromBookshelf}>
+                                <DeleteIcon />
+                            </IconButton>
+                        </ListItemSecondaryAction> :
+                    ''
+                }
             </ListItem>
         </Link>
     )

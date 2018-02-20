@@ -1,7 +1,6 @@
 
 import React, { Component } from 'react';
 import debounce from 'lodash/debounce';
-import Divider from 'material-ui/Divider';
 import { CircularProgress } from 'material-ui/Progress';
 
 import SearchResultList from './../SearchResultList/SearchResultList';
@@ -62,7 +61,6 @@ class SearchWrapper extends Component {
                 <header>
                     <SearchInput onSearchTermChange={(e) => this.debouncedHandleChange(e.target.value)} />
                 </header>
-                <Divider />
                 { isLoaded ? 
                     <SearchResultList books={books} onLoadMoreResults={this.handleMoreRequest} /> : 
                     <div className="spinner">
