@@ -45,8 +45,8 @@ class Bookshelves extends Component {
             </div>);
         } else {
             return (
-                <div className="App">
-                    <header className="App-header">
+                <div>
+                    <header>
                         <h3>Bookshelves</h3>
                     </header>
                     <List>

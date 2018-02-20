@@ -2,29 +2,29 @@ import React, { Component } from 'react';
 import { getBooksFromBookshelve } from '../../utils/books';
 import { CircularProgress } from 'material-ui/Progress';
 
-import './BookshelveDetail.css';
+import './BookshelfDetail.css';
 import SearchResultList from './../Search/SearchResultList/SearchResultList';
 
-class BookshelveDetail extends Component {
+class BookshelfDetail extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
             isLoaded: false,
-            bookshelveInfo: {}
+            bookshelfInfo: {}
         }
     }
 
     componentDidMount() {
-        let bookshelveId = this.props.match.params.bookshelveId;
+        let bookshelfId = this.props.match.params.bookshelfId;
 
-        getBooksFromBookshelve(bookshelveId).then((bookshelveInfo) => {
-            this.setState({ bookshelveInfo: bookshelveInfo, isLoaded: true });
+        getBooksFromBookshelve(bookshelfId).then((bookshelfInfo) => {
+            this.setState({ bookshelfInfo, isLoaded: true });
         });
     }
 
     render() {
-        const { isLoaded, bookshelveInfo } = this.state;
+        const { isLoaded, bookshelfInfo } = this.state;
 
         if (!isLoaded) {
             return (
@@ -33,10 +33,10 @@ class BookshelveDetail extends Component {
                 </div>);
         } else {
             return (
-                <SearchResultList books={bookshelveInfo.items} />
+                <SearchResultList books={bookshelfInfo.items} />
             )
         }
     }
 }
 
-export default BookshelveDetail;
+export default BookshelfDetail;

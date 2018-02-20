@@ -24,11 +24,3 @@
 ul.book-info-authors {
     margin-top: 10px;
 }
-
-ul.book-info-authors span::after{
-	content:", ";
-}
-
-ul.book-info-authors span:last-child::after {
-    content: "";
-}

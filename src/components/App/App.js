@@ -11,7 +11,7 @@ import SearchWrapper from './../Search/SearchWrapper/SearchWrapper';
 import BookDetail from './../BookDetail/BookDetail';
 import Recommended from './../Recommended/Recommended';
 import Bookshelves from './../Bookshelves/Bookshelves';
-import BookshelveDetail from './../BookshelveDetail/BookshelveDetail';
+import BookshelfDetail from './../BookshelveDetail/BookshelveDetail';
 import Home from './../Home/Home';
 import Header from './../Header/Header';
 import './App.css';
@@ -90,7 +90,7 @@ class App extends Component {
               <Route path="/recommended" component={Recommended} />
               <Route path="/book/:bookId" component={BookDetail} />
               <Route path="/bookshelves" component={Bookshelves} />
-              <Route path="/bookshelve/:bookshelveId" component={BookshelveDetail} />
+              <Route path="/bookshelve/:bookshelfId" component={BookshelfDetail} />
             </div>
           </div>
         </Router>

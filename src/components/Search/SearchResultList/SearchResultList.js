@@ -6,17 +6,17 @@ import './SearchResultList.css';
 
 const SearchResultList = (props) => {
     const {
-        books
+        books = []
     } = props;
 
-    const booksList = books && books.map((book) => {
+    const bookList = books.map((book) => {
         return <SearchResult key={book.id} book={book} />
     });
 
     return (
         <div className="book-list">
             <List>
-                {booksList ? booksList : 'No books to display!'}
+                {bookList ? bookList : 'No books to display!'}
             </List>
         </div>
     )

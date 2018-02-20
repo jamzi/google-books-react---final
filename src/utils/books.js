@@ -46,8 +46,8 @@ export function getMyLibraryBookshelves() {
     });
 }
 
-export function getBooksFromBookshelve(bookshelveId) {
-    let url = `${baseUrl}/mylibrary/bookshelves/${bookshelveId}/volumes`;
+export function getBooksFromBookshelve(bookshelfId) {
+    let url = `${baseUrl}/mylibrary/bookshelves/${bookshelfId}/volumes`;
 
     return fetch(url, options).then((response) => {
         return response.json();

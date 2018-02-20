@@ -45,7 +45,7 @@ class SearchWrapper extends Component {
 
     handleSearchBooks(searchTerm, currentIndex = 0) {
         let existingBooks = currentIndex ? this.state.books : [];
-        
+
         if (currentIndex === 0) {
             this.setState({ isLoaded: false });
         }
@@ -58,8 +58,8 @@ class SearchWrapper extends Component {
     render() {
         const { books, isLoaded } = this.state;
         return (
-            <div className="App">
-                <header className="App-header">
+            <div>
+                <header>
                     <SearchInput onSearchTermChange={(e) => this.debouncedHandleChange(e.target.value)} />
                 </header>
                 <Divider />

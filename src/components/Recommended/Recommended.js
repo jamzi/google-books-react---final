@@ -32,8 +32,8 @@ class Recommended extends Component {
             </div>);
         } else {
             return (
-                <div className="App">
-                    <header className="App-header">
+                <div>
+                    <header>
                         <h3>Recommended books</h3>
                     </header>
                     <SearchResultList books={recommendedBooks} />
