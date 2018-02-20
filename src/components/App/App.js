@@ -17,6 +17,7 @@ import Header from './../Header/Header';
 import './App.css';
 import config from './../../utils/auth';
 import { setAccessToken } from './../../utils/books';
+import withTracker from './../../utils/withTracker';
 
 class App extends Component {
   constructor(props) {
@@ -78,19 +79,19 @@ class App extends Component {
   handleScriptError = () => this.setState({ gapiLoaded: false })
 
   render() {
-    let element
+    let element;
     if (this.state.gapiLoaded) {
       element = (
         <Router>
           <div>
             <Header userPhotoUrl={this.state.userPhotoUrl} />
             <div className="app-routes">
-              <Route path="/search" component={SearchWrapper} />
-              <Route exact path="/" component={Home} />
-              <Route path="/recommended" component={Recommended} />
-              <Route path="/book/:bookId" component={BookDetail} />
-              <Route path="/bookshelves" component={Bookshelves} />
-              <Route path="/bookshelf/:bookshelfId" component={BookshelfDetail} />
+              <Route exact path="/" component={withTracker(Home)} />
+              <Route path="/search" component={withTracker(SearchWrapper)} />
+              <Route path="/recommended" component={withTracker(Recommended)} />
+              <Route path="/book/:bookId" component={withTracker(BookDetail)} />
+              <Route path="/bookshelves" component={withTracker(Bookshelves)} />
+              <Route path="/bookshelf/:bookshelfId" component={withTracker(BookshelfDetail)} />
             </div>
           </div>
         </Router>
