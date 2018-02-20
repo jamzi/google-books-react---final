@@ -32,7 +32,7 @@ class BookDetail extends Component {
 
     render() {
         const { isLoaded, bookInfo } = this.state;
-        const authors = bookInfo.authors && bookInfo.authors.map((author, index) => {
+        const authors = bookInfo && bookInfo.authors && bookInfo.authors.map((author, index) => {
             return <span key={index}>{author}</span>
         });
         const categories = bookInfo.categories && bookInfo.categories.map((category, index) => {

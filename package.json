@@ -7,6 +7,7 @@
     "material-ui": "^1.0.0-beta.33",
     "material-ui-icons": "^1.0.0-beta.17",
     "normalize.css": "^7.0.0",
+    "raven-js": "^3.22.3",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-router-dom": "^4.2.2",
