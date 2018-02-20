@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import debounce from 'lodash/debounce';
 import { CircularProgress } from 'material-ui/Progress';
+import ReactGA from 'react-ga';
 
 import SearchResultList from './../SearchResultList/SearchResultList';
 import SearchInput from './../SearchInput/SearchInput';
@@ -51,6 +52,10 @@ class SearchWrapper extends Component {
 
         searchBooks(searchTerm, currentIndex).then((books) => {
             this.setState({ books: [...existingBooks, ...books], isLoaded: true });
+            ReactGA.event({
+                category: 'Search',
+                action: `Searching for books with query: ${this.state.searchTerm}`,
+            });
         });
     }
 

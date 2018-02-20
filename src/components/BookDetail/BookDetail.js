@@ -11,6 +11,7 @@ import { withStyles } from 'material-ui/styles';
 import Snackbar from 'material-ui/Snackbar';
 import IconButton from 'material-ui/IconButton';
 import CloseIcon from 'material-ui-icons/Close';
+import ReactGA from 'react-ga';
 
 import './BookDetail.css';
 
@@ -50,6 +51,10 @@ class BookDetail extends Component {
         this.setState({ dialogOpen: false });
         if (this.state.bookshelfId && this.state.bookshelfId !== -1) {
             addBookToBookshelf(this.state.bookshelfId, this.state.bookId).then((response) => {
+                ReactGA.event({
+                    category: 'Bookshelf',
+                    action: `Add book to bookshelf #${this.state.bookshelfId}`,
+                });
                 this.setState({ snackbarOpen: true, bookshelfId: -1 });
             });
         }

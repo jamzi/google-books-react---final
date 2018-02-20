@@ -2,6 +2,7 @@
 
 import React, { Component } from 'react';
 import Button from 'material-ui/Button';
+import ReactGA from 'react-ga';
 
 class Home extends Component {
   componentWillMount() {
@@ -15,10 +16,18 @@ class Home extends Component {
 
   handleLoginClick() {
     gapi.auth2.getAuthInstance().signIn();
+    ReactGA.event({
+      category: 'Authentication',
+      action: `User logged in`,
+    });
   }
 
   handleLogoutClick() {
     gapi.auth2.getAuthInstance().signOut();
+    ReactGA.event({
+      category: 'Authentication',
+      action: `User signed out`,
+    });
   }
 
   render() {

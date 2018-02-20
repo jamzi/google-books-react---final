@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { ListItem, ListItemText, ListItemIcon, ListItemSecondaryAction} from 'material-ui/List';
 import IconButton from 'material-ui/IconButton';
 import DeleteIcon from 'material-ui-icons/Delete';
+import ReactGA from 'react-ga';
 
 import './SearchResult.css';
 import genericBook from './generic-book.png';
@@ -34,6 +35,10 @@ const SearchResult = (props) => {
 
         removeBookFromBookshelf(bookshelfId, book.id).then((response) => {
             console.log(response);
+            ReactGA.event({
+                category: 'Bookshelf',
+                action: `Remove book from bookshelf #${bookshelfId}`,
+            });
         });
     }
 
