@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { getBooksFromBookshelve } from '../../utils/books';
+import { getBooksFromBookshelf } from '../../utils/books';
 import { CircularProgress } from 'material-ui/Progress';
 
 import './BookshelfDetail.css';
@@ -18,7 +18,7 @@ class BookshelfDetail extends Component {
     componentDidMount() {
         let bookshelfId = this.props.match.params.bookshelfId;
 
-        getBooksFromBookshelve(bookshelfId).then((bookshelfInfo) => {
+        getBooksFromBookshelf(bookshelfId).then((bookshelfInfo) => {
             this.setState({ bookshelfInfo, isLoaded: true });
         });
     }

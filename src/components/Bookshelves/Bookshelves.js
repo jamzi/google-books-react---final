@@ -29,11 +29,11 @@ class Bookshelves extends Component {
         const { isLoaded, bookshelves } = this.state;
 
         const bookshelvesList = bookshelves && bookshelves.map((bookshelve) => {
-            const { title = '', volumeCount = 0, id } = bookshelve;
+            const { title = '', id } = bookshelve;
             return (
-                <Link key={id} to={`bookshelve/${id}`}>
+                <Link key={id} to={`bookshelf/${id}`}>
                     <ListItem>
-                        <ListItemText primary={title} secondary={volumeCount ? 'Number of books: ' + volumeCount : ''} />
+                        <ListItemText primary={title} />
                     </ListItem>
                 </Link>
             );

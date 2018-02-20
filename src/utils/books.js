@@ -46,7 +46,7 @@ export function getMyLibraryBookshelves() {
     });
 }
 
-export function getBooksFromBookshelve(bookshelfId) {
+export function getBooksFromBookshelf(bookshelfId) {
     let url = `${baseUrl}/mylibrary/bookshelves/${bookshelfId}/volumes`;
 
     return fetch(url, options).then((response) => {
@@ -63,7 +63,7 @@ export function addBookToBookshelf(shelfId, volumeId) {
 
     return fetch(url, options).then((response) => {
         if (response.status === 204) {
-            return 'Added to: To read';
+            return 'Successfully added book to bookshelf';
         }
         return 'Fail';
     });
