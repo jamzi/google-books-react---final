@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import * as Raven from 'raven-js';
 
-import 'typeface-roboto';
 import './index.css';
 import 'normalize.css';
 
