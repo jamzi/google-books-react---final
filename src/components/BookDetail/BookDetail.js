@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { getBook, addBookToBookshelf } from '../../utils/books';
+import { getBook, addBookToBookshelf, getBookshelfName } from '../../utils/books';
 import { CircularProgress } from 'material-ui/Progress';
 import Button from 'material-ui/Button';
 import Dialog, { DialogActions, DialogContent } from 'material-ui/Dialog';
@@ -40,7 +40,7 @@ class BookDetail extends Component {
     }
 
     handleDialogOpen = () => {
-        this.setState({ dialogOpen: true });
+        this.setState({ dialogOpen: true, bookshelfId: -1 });
     };
     
     handleDialogInputChange = name => event => {
@@ -53,9 +53,9 @@ class BookDetail extends Component {
             addBookToBookshelf(this.state.bookshelfId, this.state.bookId).then((response) => {
                 ReactGA.event({
                     category: 'Bookshelf',
-                    action: `Add book to bookshelf #${this.state.bookshelfId}`,
+                    action: `Add book to ${getBookshelfName(this.state.bookshelfId)}`,
                 });
-                this.setState({ snackbarOpen: true, bookshelfId: -1 });
+                this.setState({ snackbarOpen: true });
             });
         }
     };
@@ -136,7 +136,7 @@ class BookDetail extends Component {
                         SnackbarContentProps={{
                             'aria-describedby': 'message-id',
                         }}
-                        message={<span id="message-id">Successfully added book to bookshelf</span>}
+                        message={<span id="message-id">Successfully added book to {getBookshelfName(this.state.bookshelfId)}</span>}
                         action={[
                             <IconButton
                                 key="close"
