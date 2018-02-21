@@ -7,12 +7,17 @@ import './SearchResultList.css';
 const SearchResultList = (props) => {
     const {
         books = [],
-        bookshelfId
+        bookshelfId,
+        onRemoveBookFromBookshelf
     } = props;
 
     const bookList = books.map((book) => {
-        return <SearchResult key={book.id} book={book} bookshelfId={bookshelfId} />
+        return <SearchResult key={book.id} book={book} bookshelfId={bookshelfId} onRemoveBookFromBookshelf={handleRemoveBookFromList} />
     });
+
+    function handleRemoveBookFromList(bookId) {
+        onRemoveBookFromBookshelf(bookId);
+    }
 
     return (
         <div className="book-list">
