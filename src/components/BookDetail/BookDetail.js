@@ -13,8 +13,6 @@ import IconButton from 'material-ui/IconButton';
 import CloseIcon from 'material-ui-icons/Close';
 import ReactGA from 'react-ga';
 
-import './BookDetail.css';
-
 const styles = theme => ({
     formControl: {
         margin: theme.spacing.unit,

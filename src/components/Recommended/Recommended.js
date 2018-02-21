@@ -1,11 +1,10 @@
 
 import React, { Component } from 'react';
+import { CircularProgress } from 'material-ui/Progress';
 
 import SearchResultList from './../Search/SearchResultList/SearchResultList';
 import { getRecommendedBooks } from './../../utils/books';
 import './../Search/SearchWrapper/SearchWrapper.css';
-import './Recommended.css';
-import { CircularProgress } from 'material-ui/Progress';
 
 class Recommended extends Component {
 
@@ -28,8 +27,8 @@ class Recommended extends Component {
         const { isLoaded, recommendedBooks } = this.state;
         if (!isLoaded) {
             return (<div className="spinner">
-                <CircularProgress />
-            </div>);
+                        <CircularProgress />
+                    </div>);
         } else {
             return (
                 <div>

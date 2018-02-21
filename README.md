@@ -4,8 +4,6 @@
   Google Books API powered React application
 </p>
 
-<h2> WORK IN PROGRESS - Auhtentication is not stable at the moment </h2>
-
 ## Table of Contents
 
 - [Demo](#demo)
@@ -30,6 +28,8 @@ A few of the things you can do with Google Books React:
 * Log in with your Google credentials
 * Search books (+ infinite scroll for loading more content)
 * Browse your recommended books
+* Browse your bookshelves (To Read, Reading Now, Favorites...)
+* Add or remove books from bookshelves
 
 ## Feedback
 File an issue [here](https://github.com/jamzi/google-books-react/issues/new).
@@ -39,4 +39,3 @@ File an issue [here](https://github.com/jamzi/google-books-react/issues/new).
 - Clone the repo
 - Run `npm install`
 - Run `npm run start`
-- Optional (you can use your own Firebase config for development (authentication))

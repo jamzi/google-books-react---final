@@ -7,7 +7,6 @@ import { Link } from 'react-router-dom';
 import { getMyLibraryBookshelves } from './../../utils/books';
 import './Bookshelves.css';
 
-
 class Bookshelves extends Component {
 
     constructor() {
@@ -41,17 +40,19 @@ class Bookshelves extends Component {
 
         if (!isLoaded) {
             return (<div className="spinner">
-                <CircularProgress />
-            </div>);
+                        <CircularProgress />
+                    </div>);
         } else {
             return (
                 <div>
                     <header>
                         <h3>Bookshelves</h3>
                     </header>
-                    <List>
-                        {bookshelvesList}
-                    </List>
+                    <div class="bookshelves-list">
+                        <List>
+                            {bookshelvesList}
+                        </List>
+                    </div>
                 </div>
             );
         }

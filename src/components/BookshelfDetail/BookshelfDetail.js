@@ -3,7 +3,6 @@ import { getBooksFromBookshelf } from '../../utils/books';
 import { CircularProgress } from 'material-ui/Progress';
 import ReactGA from 'react-ga';
 
-import './BookshelfDetail.css';
 import SearchResultList from './../Search/SearchResultList/SearchResultList';
 import { removeBookFromBookshelf } from '../../utils/books';
 
