@@ -12,6 +12,7 @@ import Snackbar from 'material-ui/Snackbar';
 import IconButton from 'material-ui/IconButton';
 import CloseIcon from 'material-ui-icons/Close';
 import ReactGA from 'react-ga';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 const styles = theme => ({
     formControl: {
@@ -26,6 +27,7 @@ class BookDetail extends Component {
         bookInfo: {},
         dialogOpen: false,
         snackbarOpen: false,
+        snackbarMessage: '',
         bookshelfId: '',
     }
 
@@ -40,7 +42,7 @@ class BookDetail extends Component {
     handleDialogOpen = () => {
         this.setState({ dialogOpen: true, bookshelfId: -1 });
     };
-    
+
     handleDialogInputChange = name => event => {
         this.setState({ [name]: Number(event.target.value) });
     };
@@ -49,11 +51,12 @@ class BookDetail extends Component {
         this.setState({ dialogOpen: false });
         if (this.state.bookshelfId && this.state.bookshelfId !== -1) {
             addBookToBookshelf(this.state.bookshelfId, this.state.bookId).then((response) => {
+                let bookshelfName = getBookshelfName(this.state.bookshelfId);
                 ReactGA.event({
                     category: 'Bookshelf',
-                    action: `Add book to ${getBookshelfName(this.state.bookshelfId)}`,
+                    action: `Add book to ${bookshelfName}`,
                 });
-                this.setState({ snackbarOpen: true });
+                this.setState({ snackbarOpen: true, snackbarMessage: `Successfully added book to ${bookshelfName}` });
             });
         }
     };
@@ -63,7 +66,7 @@ class BookDetail extends Component {
             return;
         }
 
-        this.setState({ snackbarOpen: false });
+        this.setState({ snackbarOpen: false, snackbarMessage: '' });
     };
 
     render() {
@@ -86,6 +89,12 @@ class BookDetail extends Component {
             return (
                 <div className="book-detail">
                     <Button onClick={this.handleDialogOpen}>Add to bookshelf</Button>
+                    <CopyToClipboard text={window.location.href}
+                        onCopy={() => {
+                            this.setState({ snackbarOpen: true, snackbarMessage: 'Link copied to clipboard' });
+                        }}>
+                        <Button>Create link</Button>
+                    </CopyToClipboard>
                     <Dialog
                         disableBackdropClick
                         disableEscapeKeyDown
@@ -129,12 +138,12 @@ class BookDetail extends Component {
                             horizontal: 'left',
                         }}
                         open={this.state.snackbarOpen}
-                        autoHideDuration={6000}
+                        autoHideDuration={4000}
                         onClose={this.handleSnackbarClose}
                         SnackbarContentProps={{
                             'aria-describedby': 'message-id',
                         }}
-                        message={<span id="message-id">Successfully added book to {getBookshelfName(this.state.bookshelfId)}</span>}
+                        message={<span id="message-id">{this.state.snackbarMessage}</span>}
                         action={[
                             <IconButton
                                 key="close"
