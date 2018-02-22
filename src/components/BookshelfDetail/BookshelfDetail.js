@@ -61,7 +61,7 @@ class BookshelfDetail extends Component {
             return (
                 <div>
                     <header>
-                        <h3>{bookshelfHeaderName}</h3>
+                        <h3 className="bookshelf-header">{bookshelfHeaderName}</h3>
                     </header>
                     <SearchResultList books={books} bookshelfId={bookshelfId} onRemoveBookFromBookshelf={this.handleRemoveBookFromBookshelf} />
                 </div>
