@@ -10,81 +10,87 @@ export function searchBooks(searchTerm, startIndex) {
     const encodedSearchTerm = encodeURIComponent(searchTerm);
     let url = `${baseUrl}/volumes?q=${encodedSearchTerm}&startIndex=${startIndex}&projection=lite`;
 
-    return fetch(url, options).then((response) => {
-        return response.json();
-    }).then((response) => {
-        return response.items || [];
-    });
+    return fetch(url, options)
+        .then(handleErrors)
+        .then((response) => { return response.json(); })
+        .then((response) => { return response.items || []; })
+        .catch(error => console.log(error));
 }
 
 export function getBook(bookId) {
     let url = `${baseUrl}/volumes/${bookId}`;
 
-    return fetch(url, options).then((response) => {
-        return response.json();
-    }).then((response) => {
-        return response || {};
-    });
+    return fetch(url, options)
+        .then(handleErrors)
+        .then((response) => { return response.json(); })
+        .then((response) => { return response || {}; })
+        .catch(error => console.log(error));
 }
 
 export function getRecommendedBooks() {
     let url = `${baseUrl}/volumes/recommended`;
 
-    return fetch(url, options).then((response) => {
-        return response.json();
-    }).then((response) => {
-        return response || {};
-    });
+    return fetch(url, options)
+        .then(handleErrors)
+        .then((response) => { return response.json(); })
+        .then((response) => { return response || {}; })
+        .catch(error => console.log(error));
 }
 
 export function getMyLibraryBookshelves() {
     let url = `${baseUrl}/mylibrary/bookshelves`;
 
-    return fetch(url, options).then((response) => {
-        return response.json();
-    }).then((response) => {
-        return response || {};
-    });
+    return fetch(url, options)
+        .then(handleErrors)
+        .then((response) => { return response.json(); })
+        .then((response) => { return response || {}; })
+        .catch(error => console.log(error));
 }
 
 export function getBooksFromBookshelf(bookshelfId) {
     let url = `${baseUrl}/mylibrary/bookshelves/${bookshelfId}/volumes`;
 
-    return fetch(url, options).then((response) => {
-        return response.json();
-    }).then((response) => {
-        return response || {};
-    });
+    return fetch(url, options)
+        .then(handleErrors)
+        .then((response) => { return response.json(); })
+        .then((response) => { return response || {}; })
+        .catch(error => console.log(error));
 }
 
 export function addBookToBookshelf(shelfId, volumeId) {
     let url = `${baseUrl}/mylibrary/bookshelves/${shelfId}/addVolume?volumeId=${volumeId}`;
-    let additionalOptions = options;
-    additionalOptions.method = 'POST';
+    const additionalOptions = Object.assign({}, options, {
+        method: 'POST'
+    });
 
     let bookshelfName = getBookshelfName(shelfId);
 
-    return fetch(url, options).then((response) => {
-        if (response.status === 204) {
-            return `Successfully added book to ${bookshelfName}`;
-        }
-        return `Cannot add book to ${bookshelfName}`;
-    });
+    return fetch(url, additionalOptions)
+        .then(handleErrors)
+        .then((response) => { 
+            if (response.status === 204) {
+                return `Successfully added book to ${bookshelfName}`;
+            }
+        })
+        .catch(error => console.log(error));
 }
 
 export function removeBookFromBookshelf(shelfId, volumeId) {
     let url = `${baseUrl}/mylibrary/bookshelves/${shelfId}/removeVolume?volumeId=${volumeId}`;
-    let additionalOptions = options;
-    additionalOptions.method = 'POST';
+    const additionalOptions = Object.assign({}, options, {
+        method: 'POST'
+    });
 
     let bookshelfName = getBookshelfName(shelfId);
 
-    return fetch(url, options).then((response) => {
-        if (response.status === 204) {
-            return `Successfully removed book from ${bookshelfName}`;
-        }
-        return `Cannot remove book from ${bookshelfName}`;
-    });
+    return fetch(url, additionalOptions)
+        .then(handleErrors)
+        .then((response) => { 
+            if (response.status === 204) {
+                return `Successfully added book to ${bookshelfName}`;
+            }
+        })
+        .catch(error => console.log(error));
 }
 
 export function getBookshelfName(id) {
@@ -130,4 +136,11 @@ export function getBookshelfName(id) {
 
 export function setAccessToken(accessToken) {
     options.headers.Authorization = `Bearer ${accessToken}`;
+}
+
+function handleErrors(response) {
+    if (!response.ok) {
+        throw Error(response.statusText);
+    }
+    return response;
 }
