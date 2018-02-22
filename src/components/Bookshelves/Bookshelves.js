@@ -48,7 +48,7 @@ class Bookshelves extends Component {
                     <header>
                         <h3>Bookshelves</h3>
                     </header>
-                    <div class="bookshelves-list">
+                    <div className="bookshelves-list">
                         <List>
                             {bookshelvesList}
                         </List>
