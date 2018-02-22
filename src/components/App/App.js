@@ -3,7 +3,8 @@
 import React, { Component } from 'react';
 import {
   BrowserRouter as Router,
-  Route
+  Route,
+  Redirect
 } from 'react-router-dom';
 import { CircularProgress } from 'material-ui/Progress';
 
@@ -44,10 +45,10 @@ class App extends Component {
           if (authResponse && currentUser) {
             setAccessToken(authResponse.access_token);
             this.setState({
-              userPhotoUrl: currentUser.getBasicProfile().getImageUrl() 
+              userPhotoUrl: currentUser.getBasicProfile().getImageUrl()
             })
           }
-          this.setState({ 
+          this.setState({
             gapiLoaded: true
           });
         });
@@ -87,19 +88,19 @@ class App extends Component {
             <Header userPhotoUrl={this.state.userPhotoUrl} />
             <div className="app-routes">
               <Route exact path="/" component={withTracker(Home)} />
-              <Route path="/search" component={withTracker(SearchWrapper)} />
-              <Route path="/recommended" component={withTracker(Recommended)} />
-              <Route path="/book/:bookId" component={withTracker(BookDetail)} />
-              <Route path="/bookshelves" component={withTracker(Bookshelves)} />
-              <Route path="/bookshelf/:bookshelfId" component={withTracker(BookshelfDetail)} />
+              <PrivateRoute path="/search" component={withTracker(SearchWrapper)} />
+              <PrivateRoute path="/recommended" component={withTracker(Recommended)} />
+              <PrivateRoute path="/book/:bookId" component={withTracker(BookDetail)} />
+              <PrivateRoute path="/bookshelves" component={withTracker(Bookshelves)} />
+              <PrivateRoute path="/bookshelf/:bookshelfId" component={withTracker(BookshelfDetail)} />
             </div>
           </div>
         </Router>
       )
     } else {
       element = <div className="spinner">
-                    <CircularProgress />
-                </div>
+        <CircularProgress />
+      </div>
     }
 
     return (
@@ -109,5 +110,23 @@ class App extends Component {
     )
   }
 }
+
+const PrivateRoute = ({ component: Component, ...rest }) => (
+  <Route
+    {...rest}
+    render={props =>
+      gapi.auth2.getAuthInstance().isSignedIn.get() ? (
+        <Component {...props} />
+      ) : (
+          <Redirect
+            to={{
+              pathname: "/",
+              state: { from: props.location }
+            }}
+          />
+        )
+    }
+  />
+);
 
 export default App;
