@@ -7,7 +7,8 @@ let options = {
 let baseUrl = 'https://www.googleapis.com/books/v1';
 
 export function searchBooks(searchTerm, startIndex) {
-    let url = `${baseUrl}/volumes?q=${searchTerm}&startIndex=${startIndex}&projection=lite`;
+    const encodedSearchTerm = encodeURIComponent(searchTerm);
+    let url = `${baseUrl}/volumes?q=${encodedSearchTerm}&startIndex=${startIndex}&projection=lite`;
 
     return fetch(url, options).then((response) => {
         return response.json();
