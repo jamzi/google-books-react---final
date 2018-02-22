@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { getBooksFromBookshelf } from '../../utils/books';
+import { getBooksFromBookshelf, getBookshelfName, removeBookFromBookshelf } from '../../utils/books';
 import { CircularProgress } from 'material-ui/Progress';
 import ReactGA from 'react-ga';
 
 import SearchResultList from './../Search/SearchResultList/SearchResultList';
-import { removeBookFromBookshelf } from '../../utils/books';
+import './BookshelfDetail.css';
 
 class BookshelfDetail extends Component {
     constructor(props) {
@@ -12,21 +12,30 @@ class BookshelfDetail extends Component {
 
         this.state = {
             isLoaded: false,
-            bookshelfInfo: {},
-            bookshelfId: null
+            books: [],
+            bookshelfId: null,
+            bookshelfHeaderName: ''
         }
         this.handleRemoveBookFromBookshelf = this.handleRemoveBookFromBookshelf.bind(this);
     }
 
     componentDidMount() {
+        this.setBookshelfHeaderName();
         this.fetchBooksFromBookshelf();
+    }
+
+    setBookshelfHeaderName() {
+        let name = getBookshelfName(+this.props.match.params.bookshelfId);
+        this.setState({
+            bookshelfHeaderName: name
+        });
     }
 
     fetchBooksFromBookshelf() {
         let bookshelfId = this.props.match.params.bookshelfId;
 
-        getBooksFromBookshelf(bookshelfId).then((bookshelfInfo) => {
-            this.setState({ bookshelfInfo, isLoaded: true, bookshelfId });
+        getBooksFromBookshelf(bookshelfId).then((books) => {
+            this.setState({ books, isLoaded: true, bookshelfId });
         });
     }
 
@@ -41,7 +50,7 @@ class BookshelfDetail extends Component {
     }
 
     render() {
-        const { isLoaded, bookshelfInfo, bookshelfId } = this.state;
+        const { isLoaded, books, bookshelfId, bookshelfHeaderName } = this.state;
 
         if (!isLoaded) {
             return (
@@ -50,7 +59,12 @@ class BookshelfDetail extends Component {
                 </div>);
         } else {
             return (
-                <SearchResultList books={bookshelfInfo.items} bookshelfId={bookshelfId} onRemoveBookFromBookshelf={this.handleRemoveBookFromBookshelf}/>
+                <div>
+                    <header>
+                        <h3>{bookshelfHeaderName}</h3>
+                    </header>
+                    <SearchResultList books={books} bookshelfId={bookshelfId} onRemoveBookFromBookshelf={this.handleRemoveBookFromBookshelf} />
+                </div>
             )
         }
     }

@@ -53,7 +53,7 @@ export function getBooksFromBookshelf(bookshelfId) {
     return fetch(url, options)
         .then(handleErrors)
         .then((response) => { return response.json(); })
-        .then((response) => { return response || {}; })
+        .then((response) => { return response.items || []; })
         .catch(error => console.log(error));
 }
 
@@ -139,7 +139,7 @@ export function setAccessToken(accessToken) {
 }
 
 function handleErrors(response) {
-    if (!response.ok) {
+    if (!response.ok && response.status !== 404) {
         throw Error(response.statusText);
     }
     return response;
