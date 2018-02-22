@@ -41,6 +41,10 @@ class SearchWrapper extends Component {
         const { searchTerm, currentIndex } = this.state;
         const newIndex = currentIndex + 10;
         this.setState({ currentIndex: newIndex}, () => this.handleSearchBooks(searchTerm, newIndex));
+        ReactGA.event({
+            category: 'Search',
+            action: `Loading more results (infinity scroll)`,
+        });
     }
 
     handleSearchBooks(searchTerm, currentIndex = 0) {
@@ -54,7 +58,7 @@ class SearchWrapper extends Component {
             this.setState({ books: [...existingBooks, ...books], isLoaded: true });
             ReactGA.event({
                 category: 'Search',
-                action: `Searching for books with query: ${this.state.searchTerm}`,
+                action: `Searching for books`,
             });
         });
     }
