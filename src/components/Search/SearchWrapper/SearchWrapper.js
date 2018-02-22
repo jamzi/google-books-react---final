@@ -54,6 +54,11 @@ class SearchWrapper extends Component {
             this.setState({ isLoaded: false });
         }
 
+        if (searchTerm === '') {
+            this.setState({ books: [], isLoaded: true });
+            return;
+        }
+
         searchBooks(searchTerm, currentIndex).then((books) => {
             this.setState({ books: [...existingBooks, ...books], isLoaded: true });
             ReactGA.event({
