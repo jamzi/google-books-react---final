@@ -11,7 +11,6 @@ import registerServiceWorker from './registerServiceWorker';
 const packageJson = require('./../package.json');
 
 if (process.env.NODE_ENV !== 'development') {
-    console.log('ENVIORNMENT ', process.env.NODE_ENV);
     Raven.config('https://c8f1d49a987e419d9d57319fcbe61bac@sentry.io/290581', { release: packageJson.version }).install();
 }
 

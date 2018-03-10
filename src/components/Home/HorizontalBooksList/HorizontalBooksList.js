@@ -35,6 +35,11 @@ const HorizontalBooksList = (props) => {
         classes
     } = props;
 
+    function getThumbnail(book) {
+        let thumbnailUrl = book.volumeInfo && book.volumeInfo.imageLinks && book.volumeInfo.imageLinks.smallThumbnail;
+        return thumbnailUrl ? thumbnailUrl.replace(/^http:\/\//i, 'https://') : '';
+    }
+
     return (
         <div className="book-list">
             <h3>{ title }</h3>
@@ -42,7 +47,7 @@ const HorizontalBooksList = (props) => {
                 {books.map(book => (
                     <GridListTile key={book.id}>
                         <Link to={`/book/${book.id}`}>
-                            {<img className="book-detail-image" src={(book.volumeInfo.imageLinks && book.volumeInfo.imageLinks.smallThumbnail) || genericBook} alt={book.volumeInfo.title} />}
+                            {<img className="book-detail-image" src={getThumbnail(book) || genericBook} alt={book.volumeInfo.title} />}
                         </Link>
                     </GridListTile>
                 ))}
