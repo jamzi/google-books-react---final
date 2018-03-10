@@ -13,11 +13,15 @@ import IconButton from 'material-ui/IconButton';
 import CloseIcon from 'material-ui-icons/Close';
 import ReactGA from 'react-ga';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
+import Chip from 'material-ui/Chip';
 
 const styles = theme => ({
     formControl: {
         margin: theme.spacing.unit,
         minWidth: 200,
+    },
+    chip: {
+        margin: theme.spacing.unit / 2,
     }
 });
 
@@ -77,7 +81,7 @@ class BookDetail extends Component {
             return <span key={index}>{author}</span>
         });
         const categories = bookInfo.categories && bookInfo.categories.map((category, index) => {
-            return <span key={index}>{category}</span>
+            return <Chip key={index} label={category} className={classes.chip} />
         });
         const strippedDescription = bookInfo && bookInfo.description && bookInfo.description.replace(/<(.|\n)*?>/g, '');
         if (!isLoaded) {
