@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import Button from 'material-ui/Button';
 import ReactGA from 'react-ga';
 import { Redirect } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 import { getBooksFromBookshelf } from '../../utils/books';
 import HorizontalBooksList from '../Home/HorizontalBooksList/HorizontalBooksList';
@@ -21,6 +22,7 @@ class Home extends Component {
     }
     this.handleLoginClick = this.handleLoginClick.bind(this);
     this.handleLogoutClick = this.handleLogoutClick.bind(this);
+    this.handleSearchButtonClick = this.handleSearchButtonClick.bind(this);
   }
 
   componentWillMount() {
@@ -74,6 +76,14 @@ class Home extends Component {
     });
   }
 
+  handleSearchButtonClick() {
+    ReactGA.event({
+      category: 'Search',
+      action: `Navigate to search from home`,
+    });
+    this.props.history.push('/search');
+  }
+
   render() {
     const { from } = this.props.location.state || { from: { pathname: "/" } };
     const { isLoggedIn, redirectToReferrer, booksForYou, booksReadingNow } = this.state;
@@ -82,6 +92,9 @@ class Home extends Component {
     if (isLoggedIn) {
       content =
         <div>
+          <Button variant="raised" color="primary" fullWidth onClick={this.handleSearchButtonClick}>
+            Search books
+          </Button>
           <HorizontalBooksList title={'Books for you'} books={booksForYou} />
           <HorizontalBooksList title={'Reading now'} books={booksReadingNow} />
 
@@ -93,10 +106,13 @@ class Home extends Component {
         </div>
     } else {
       content =
-        <div class="actions">
-          <Button variant="raised" color="primary" onClick={this.handleLoginClick}>
-            Log in with Google
-          </Button>
+        <div>
+          <h3>Login with Google access books information</h3>
+          <div class="actions">
+            <Button variant="raised" color="primary" onClick={this.handleLoginClick}>
+              Log in with Google
+            </Button>
+          </div>
         </div>
     }
 
@@ -112,4 +128,4 @@ class Home extends Component {
   }
 }
 
-export default Home;
+export default (withRouter)(Home);

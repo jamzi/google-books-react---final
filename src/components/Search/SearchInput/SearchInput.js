@@ -7,6 +7,7 @@ const SearchInput = (props) => (
         label="Search books"
         type="search"
         margin="normal"
+        autoFocus
         fullWidth
         onChange={props.onSearchTermChange}
     />

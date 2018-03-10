@@ -3,6 +3,7 @@ import GridList, { GridListTile } from 'material-ui/GridList';
 import { withStyles } from 'material-ui/styles';
 import { Link } from 'react-router-dom';
 
+import genericBook from './../../Search/SearchResult/generic-book.png';
 import './HorizontalBooksList.css';
 
 const styles = theme => ({
@@ -41,7 +42,7 @@ const HorizontalBooksList = (props) => {
                 {books.map(book => (
                     <GridListTile key={book.volumeInfo.id}>
                         <Link to={`/book/${book.id}`}>
-                            {<img className="book-detail-image" src={book.volumeInfo.imageLinks && book.volumeInfo.imageLinks.smallThumbnail} alt={book.volumeInfo.title} />}
+                            {<img className="book-detail-image" src={(book.volumeInfo.imageLinks && book.volumeInfo.imageLinks.smallThumbnail) || genericBook} alt={book.volumeInfo.title} />}
                         </Link>
                     </GridListTile>
                 ))}
