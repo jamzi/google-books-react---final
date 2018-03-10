@@ -40,7 +40,7 @@ const HorizontalBooksList = (props) => {
             <h3>{ title }</h3>
             <GridList className={classes.gridList} cols={2.5}>
                 {books.map(book => (
-                    <GridListTile key={book.volumeInfo.id}>
+                    <GridListTile key={book.id}>
                         <Link to={`/book/${book.id}`}>
                             {<img className="book-detail-image" src={(book.volumeInfo.imageLinks && book.volumeInfo.imageLinks.smallThumbnail) || genericBook} alt={book.volumeInfo.title} />}
                         </Link>

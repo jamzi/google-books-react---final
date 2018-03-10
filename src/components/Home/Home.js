@@ -98,7 +98,7 @@ class Home extends Component {
           <HorizontalBooksList title={'Books for you'} books={booksForYou} />
           <HorizontalBooksList title={'Reading now'} books={booksReadingNow} />
 
-          <div class="actions">
+          <div className="actions">
             <Button variant="raised" color="primary" onClick={this.handleLogoutClick}>
               Logout
             </Button>
@@ -108,7 +108,7 @@ class Home extends Component {
       content =
         <div>
           <h3>Login with Google access books information</h3>
-          <div class="actions">
+          <div className="actions">
             <Button variant="raised" color="primary" onClick={this.handleLoginClick}>
               Log in with Google
             </Button>
