@@ -6,7 +6,6 @@ import './index.css';
 import 'normalize.css';
 
 import App from './components/App/App';
-import registerServiceWorker from './registerServiceWorker';
 
 const packageJson = require('./../package.json');
 
@@ -15,4 +14,3 @@ if (process.env.NODE_ENV !== 'development') {
 }
 
 ReactDOM.render(<App />, document.getElementById('root'));
-registerServiceWorker();
