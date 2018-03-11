@@ -4,10 +4,10 @@
   "private": true,
   "dependencies": {
     "lodash": "^4.17.5",
-    "material-ui": "^1.0.0-beta.34",
-    "material-ui-icons": "^1.0.0-beta.17",
+    "material-ui": "^1.0.0-beta.36",
+    "material-ui-icons": "^1.0.0-beta.36",
     "normalize.css": "^8.0.0",
-    "raven-js": "^3.22.3",
+    "raven-js": "^3.23.1",
     "react": "^16.2.0",
     "react-copy-to-clipboard": "^5.0.1",
     "react-dom": "^16.2.0",
