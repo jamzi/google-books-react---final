@@ -92,14 +92,14 @@ class Home extends Component {
     if (isLoggedIn) {
       content =
         <div>
-          <Button variant="raised" color="primary" fullWidth onClick={this.handleSearchButtonClick}>
+          <Button className="home-search-books" variant="raised" color="primary" fullWidth onClick={this.handleSearchButtonClick}>
             Search books
           </Button>
           <HorizontalBooksList title={'Books for you'} books={booksForYou} />
           <HorizontalBooksList title={'Reading now'} books={booksReadingNow} />
 
           <div className="actions">
-            <Button variant="raised" color="primary" onClick={this.handleLogoutClick}>
+            <Button className="home-logout" variant="raised" color="primary" onClick={this.handleLogoutClick}>
               Logout
             </Button>
           </div>
@@ -109,7 +109,7 @@ class Home extends Component {
         <div>
           <h3>Login with Google access books information</h3>
           <div className="actions">
-            <Button variant="raised" color="primary" onClick={this.handleLoginClick}>
+            <Button className="home-login" variant="raised" color="primary" onClick={this.handleLoginClick}>
               Log in with Google
             </Button>
           </div>

@@ -92,12 +92,12 @@ class BookDetail extends Component {
         } else {
             return (
                 <div className="book-detail">
-                    <Button onClick={this.handleDialogOpen}>Add to bookshelf</Button>
+                    <Button className="add-to-bookshelf" onClick={this.handleDialogOpen}>Add to bookshelf</Button>
                     <CopyToClipboard text={window.location.href}
                         onCopy={() => {
                             this.setState({ snackbarOpen: true, snackbarMessage: 'Link copied to clipboard' });
                         }}>
-                        <Button>Create link</Button>
+                        <Button className="create-link" >Create link</Button>
                     </CopyToClipboard>
                     <Dialog
                         disableBackdropClick
@@ -122,10 +122,10 @@ class BookDetail extends Component {
                             </form>
                         </DialogContent>
                         <DialogActions>
-                            <Button onClick={this.handleDialogClose} color="primary">
+                            <Button className="cancel-add-to-dialog" onClick={this.handleDialogClose} color="primary">
                                 Cancel
                             </Button>
-                            <Button onClick={this.handleDialogClose} color="primary">
+                            <Button className="confirm-add-to-dialog" onClick={this.handleDialogClose} color="primary">
                                 Add
                             </Button>
                         </DialogActions>
