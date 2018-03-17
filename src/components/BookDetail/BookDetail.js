@@ -84,6 +84,15 @@ class BookDetail extends Component {
             return <Chip key={index} label={category} className={classes.chip} />
         });
         const strippedDescription = bookInfo && bookInfo.description && bookInfo.description.replace(/<(.|\n)*?>/g, '');
+
+        let amazonSearchUrl = '';
+        if (isLoaded && bookInfo && bookInfo.title && bookInfo.authors) {
+            const amazonSearchUrlBase = 'https://www.amazon.com/s/field-keywords=';
+            const title = bookInfo.title.split(' ').join('+');
+            const authors = bookInfo.authors.join().split(' ').join('+');
+            amazonSearchUrl = `${amazonSearchUrlBase}${title}+${authors}`;
+        }
+
         if (!isLoaded) {
             return (
                 <div className="spinner">
@@ -92,6 +101,7 @@ class BookDetail extends Component {
         } else {
             return (
                 <div className="book-detail">
+                    <Button className="buy-on-amazon" variant="raised" color="primary" href={amazonSearchUrl} target="_blank">Buy on amazon</Button>
                     <Button className="add-to-bookshelf" onClick={this.handleDialogOpen}>Add to bookshelf</Button>
                     <CopyToClipboard text={window.location.href}
                         onCopy={() => {
