@@ -14,6 +14,12 @@ import CloseIcon from 'material-ui-icons/Close';
 import ReactGA from 'react-ga';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import Chip from 'material-ui/Chip';
+import ExpansionPanel, {
+    ExpansionPanelSummary,
+    ExpansionPanelDetails,
+} from 'material-ui/ExpansionPanel';
+import Typography from 'material-ui/Typography';
+import ExpandMoreIcon from 'material-ui-icons/ExpandMore';
 
 const styles = theme => ({
     formControl: {
@@ -22,6 +28,14 @@ const styles = theme => ({
     },
     chip: {
         margin: theme.spacing.unit / 2,
+    },
+    expansionPanel: {
+        marginTop: theme.spacing.unit,
+        marginBottom: theme.spacing.unit
+    },
+    bookImage: {
+        display: 'flex',
+        margin: '10px auto'
     }
 });
 
@@ -93,6 +107,11 @@ class BookDetail extends Component {
             amazonSearchUrl = `${amazonSearchUrlBase}${title}+${authors}`;
         }
 
+        function getSmallImage(bookInfo) {
+            let bookImageUrl = bookInfo.imageLinks.small || bookInfo.imageLinks.thumbnail;
+            return bookImageUrl ? bookImageUrl.replace(/^http:\/\//i, 'https://') : '';
+        }
+
         if (!isLoaded) {
             return (
                 <div className="spinner">
@@ -143,7 +162,15 @@ class BookDetail extends Component {
 
                     <h1>{bookInfo.title}</h1><span>({bookInfo.publishedDate})</span>
                     <div>By: {authors ? authors : 'No authors to display'}</div>
-                    <h3>{strippedDescription}</h3>
+                    <ExpansionPanel className={classes.expansionPanel}>
+                        <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+                            <Typography className={classes.heading}>Description</Typography>
+                        </ExpansionPanelSummary>
+                        <ExpansionPanelDetails>
+                            <Typography>{strippedDescription}</Typography>
+                        </ExpansionPanelDetails>
+                    </ExpansionPanel>
+                    {<img className={classes.bookImage} src={getSmallImage(bookInfo)} alt={bookInfo.title} />}
                     <div>Categories: {categories ? categories : 'No categories to display'}</div>
 
                     <Snackbar
