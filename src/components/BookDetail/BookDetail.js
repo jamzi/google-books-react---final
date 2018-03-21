@@ -91,9 +91,8 @@ class BookDetail extends Component {
         const { isLoaded, bookInfo } = this.state;
         const { classes } = this.props;
 
-        const authors = bookInfo && bookInfo.authors && bookInfo.authors.map((author, index) => {
-            return <span key={index}>{author}</span>
-        });
+        const authors = getAuthorList(bookInfo);
+
         const categories = bookInfo.categories && bookInfo.categories.map((category, index) => {
             return <Chip key={index} label={category} className={classes.chip} />
         });
@@ -108,9 +107,19 @@ class BookDetail extends Component {
         }
 
         function getSmallImage(bookInfo) {
-            let bookImageUrl = bookInfo.imageLinks.small || bookInfo.imageLinks.thumbnail;
+            let bookImageUrl = bookInfo.imageLinks && (bookInfo.imageLinks.small || bookInfo.imageLinks.thumbnail);
             return bookImageUrl ? bookImageUrl.replace(/^http:\/\//i, 'https://') : '';
         }
+
+        function getAuthorList(bookInfo) {
+            let authorList = bookInfo.authors;
+            if (!authorList) {
+                return <span>No authors to display</span>;
+            }
+            return authorList.map((author, index) => {
+                return <span key={index}>{author}{index + 1 !== authorList.length ? ', ' : ''}</span>;
+            });
+        }    
 
         if (!isLoaded) {
             return (
@@ -161,7 +170,7 @@ class BookDetail extends Component {
                     </Dialog>
 
                     <h1>{bookInfo.title}</h1><span>({bookInfo.publishedDate})</span>
-                    <div>By: {authors ? authors : 'No authors to display'}</div>
+                    <div>By: {authors}</div>
                     <ExpansionPanel className={classes.expansionPanel}>
                         <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
                             <Typography className={classes.heading}>Description</Typography>
