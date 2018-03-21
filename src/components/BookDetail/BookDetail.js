@@ -102,7 +102,7 @@ class BookDetail extends Component {
         if (isLoaded && bookInfo && bookInfo.title && bookInfo.authors) {
             const amazonSearchUrlBase = 'https://www.amazon.com/s/field-keywords=';
             const title = bookInfo.title.split(' ').join('+');
-            const authors = bookInfo.authors.join().split(' ').join('+');
+            const authors = bookInfo.authors.join(' ').split(' ').join('+');
             amazonSearchUrl = `${amazonSearchUrlBase}${title}+${authors}`;
         }
 
