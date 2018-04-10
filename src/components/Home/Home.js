@@ -107,7 +107,7 @@ class Home extends Component {
     } else {
       content =
         <div>
-          <h3>Login with Google access books information</h3>
+          <h3>Login with Google to access books information</h3>
           <div className="actions">
             <Button className="home-login" variant="raised" color="primary" onClick={this.handleLoginClick}>
               Log in with Google
