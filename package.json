@@ -3,18 +3,18 @@
   "version": "0.2.2",
   "private": true,
   "dependencies": {
-    "lodash": "^4.17.5",
+    "lodash": "4.17.5",
     "material-ui": "1.0.0-beta.36",
     "material-ui-icons": "1.0.0-beta.36",
-    "normalize.css": "^8.0.0",
-    "raven-js": "^3.23.1",
-    "react": "^16.2.0",
-    "react-copy-to-clipboard": "^5.0.1",
-    "react-dom": "^16.2.0",
-    "react-ga": "^2.4.1",
-    "react-router-dom": "^4.2.2",
+    "normalize.css": "8.0.0",
+    "raven-js": "3.23.1",
+    "react": "16.2.0",
+    "react-copy-to-clipboard": "5.0.1",
+    "react-dom": "16.2.0",
+    "react-ga": "2.4.1",
+    "react-router-dom": "4.2.2",
     "react-scripts": "1.1.1",
-    "source-map-explorer": "^1.5.0"
+    "source-map-explorer": "1.5.0"
   },
   "scripts": {
     "analyze": "source-map-explorer build/static/js/main.*",
